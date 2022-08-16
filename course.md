@@ -14,9 +14,15 @@ var fs=require('fs');
 var root="./image.png" //你本地图片路径
 var server=http.createServer(function(req,res){
     fs.readFile(root+req.url,function(err,data){
-        res.writeHeader(200,{'content-type' : 'html;charset="utf-8"'});
-        res.write(data);
-        res.end();
+        if(err){
+            res.writeHeader(404,{'content-type' : 'html;charset="utf-8"'});
+            res.write('404');
+            res.end();
+        }else{
+            res.writeHeader(200,{'content-type' : 'html;charset="utf-8"'});
+            res.write(data);
+            res.end();
+        }
     })
 }).listen(23333);
 console.log('服务器开启成功');
